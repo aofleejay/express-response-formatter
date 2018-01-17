@@ -62,17 +62,17 @@ res.badGateway()
 ```
 
 ## API ##
-|         METHOD                | CODE |  PARAMS  |
-|-------------------------------|------|----------|
-| res.ok()                      | 200  | ok(data) |
-| res.created()                 | 201  | ok(data) |
-| res.noContent()               | 204  |    -     |
-| res.badRequest()              | 400  |    -     |
-| res.unauthorized()            | 401  |    -     |
-| res.notFound()                | 404  |    -     |
-| res.methodNotAllowed()        | 405  |    -     |
-| res.unprocessableEntity()     | 422  |    -     |
-| res.internalServerError()     | 500  |    -     |
-| res.badGateway()              | 502  |    -     |
-| res.serviceUnavailable()      | 503  |    -     |
-| res.gatewayTimeout()          | 504  |    -     |
+|         METHOD                | CODE |       PARAMS      |
+|-------------------------------|------|-------------------|
+| res.ok()                      | 200  | res.ok(data)      |
+| res.created()                 | 201  | res.created(data) |
+| res.noContent()               | 204  |         -         |
+| res.badRequest()              | 400  |         -         |
+| res.unauthorized()            | 401  |         -         |
+| res.notFound()                | 404  |         -         |
+| res.methodNotAllowed()        | 405  |         -         |
+| res.unprocessableEntity()     | 422  |         -         |
+| res.internalServerError()     | 500  |         -         |
+| res.badGateway()              | 502  |         -         |
+| res.serviceUnavailable()      | 503  |         -         |
+| res.gatewayTimeout()          | 504  |         -         |
