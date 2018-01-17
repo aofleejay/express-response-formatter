@@ -8,7 +8,7 @@ npm install expressjs-response --save
 
 ## Quick Start ##
 Use as Express middleware
-```
+```js
 import express from 'express'
 import responseEnhancer from 'exressjs-response'
 
@@ -28,9 +28,11 @@ app.listen(3000, () => console.log('Start at http://localhost:3000'))
 ```
 
 ## Example Response ##
- - code: res.ok({ name: 'John Doe' })
+#### 2xx ####
+```js
+res.ok({ name: 'John Doe' })
 ```
-response:
+```json
 {
     "status": "success",
     "data": {
@@ -38,19 +40,21 @@ response:
     }
 }
 ```
-
- - code: res.badRequest()
+#### 4xx ####
+```js
+res.badRequest()
 ```
-response:
+```json
 {
     "status": "fail",
     "message": "Bad Request"
 }
 ```
-
- - code: res.badGateway()
+#### 5xx ####
+```js
+res.badGateway()
 ```
-response:
+```json
 {
     "status": "error",
     "message": "Bad Gateway"
