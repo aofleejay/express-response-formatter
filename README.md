@@ -15,20 +15,20 @@ import responseEnhancer from 'exressjs-response'
 const app = express()
 
 // use in express middleware
-app.use(responseEnhancer())
+app.use(responseEnhancer({
+  withStatusCode: true, // Include status code in response body.
+}))
 
 // example usage
-app.get('/success', (req, res) => res.ok(
-  { name: 'John Doe' }
-))
+app.get('/success', (req, res) => res.ok({ name: 'John Doe' }))
 app.get('/badrequest', (req, res) => res.badRequest())
-app.get('/unauthorized', (req, res) => res.unauthorized())
+app.get('/badgateway', (req, res) => res.badGateway())
 
 app.listen(3000, () => console.log('Start at http://localhost:3000'))
 ```
 
 ## Example Response ##
-#### 2xx ####
+#### 200 ####
 ```js
 res.ok({ name: 'John Doe' })
 ```
@@ -40,7 +40,7 @@ res.ok({ name: 'John Doe' })
     }
 }
 ```
-#### 4xx ####
+#### 400 ####
 ```js
 res.badRequest()
 ```
@@ -50,7 +50,7 @@ res.badRequest()
     "message": "Bad Request"
 }
 ```
-#### 5xx ####
+#### 502 ####
 ```js
 res.badGateway()
 ```
@@ -62,17 +62,17 @@ res.badGateway()
 ```
 
 ## API ##
-|         METHOD                | CODE |       PARAMS      |
-|-------------------------------|------|-------------------|
-| res.ok()                      | 200  | res.ok(data)      |
-| res.created()                 | 201  | res.created(data) |
-| res.noContent()               | 204  |         -         |
-| res.badRequest()              | 400  |         -         |
-| res.unauthorized()            | 401  |         -         |
-| res.notFound()                | 404  |         -         |
-| res.methodNotAllowed()        | 405  |         -         |
-| res.unprocessableEntity()     | 422  |         -         |
-| res.internalServerError()     | 500  |         -         |
-| res.badGateway()              | 502  |         -         |
-| res.serviceUnavailable()      | 503  |         -         |
-| res.gatewayTimeout()          | 504  |         -         |
+|         METHOD                | CODE |       PARAMS                   |
+|-------------------------------|------|--------------------------------|
+| res.ok()                      | 200  | res.ok(data)                   |
+| res.created()                 | 201  | res.created(data)              |
+| res.noContent()               | 204  |               -                |
+| res.badRequest()              | 400  | res.badRequest(error)          |
+| res.unauthorized()            | 401  | res.unauthorized(error)        |
+| res.notFound()                | 404  | res.notFound(error)            |
+| res.methodNotAllowed()        | 405  | res.methodNotAllowed(error)    |
+| res.unprocessableEntity()     | 422  | res.unprocessableEntity(error) |
+| res.internalServerError()     | 500  |               -                |
+| res.badGateway()              | 502  |               -                |
+| res.serviceUnavailable()      | 503  |               -                |
+| res.gatewayTimeout()          | 504  |               -                |

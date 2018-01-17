@@ -16,9 +16,7 @@ const methods = [
   {
     name: 'noContent',
     code: 204,
-    getResponse: ({ data }) => ({
-      data,
-    })
+    getResponse: () => {}
   },
   {
     name: 'badRequest',
@@ -63,33 +61,29 @@ const methods = [
   {
     name: 'internalServerError',
     code: 500,
-    getResponse: ({ data }) => ({
+    getResponse: () => ({
       message: 'Internal Server Error',
-      error: data,
     })
   },
   {
     name: 'badGateway',
     code: 502,
-    getResponse: ({ data }) => ({
+    getResponse: () => ({
       message: 'Bad Gateway',
-      error: data,
     })
   },
   {
     name: 'serviceUnavailable',
     code: 503,
-    getResponse: ({ data }) => ({
+    getResponse: () => ({
       message: 'Service Unavailable',
-      error: data,
     })
   },
   {
     name: 'gatewayTimeout',
     code: 504,
-    getResponse: ({ data }) => ({
+    getResponse: () => ({
       message: 'Gateway Timeout',
-      error: data,
     })
   }
 ]
