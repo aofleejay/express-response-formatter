@@ -1,6 +1,6 @@
 {
   "name": "expressjs-response",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "src/index.js",
   "repository": "https://github.com/aofleejay/expressjs-response.git",
   "author": "kunapot <kunapot@thinknet.co.th>",
