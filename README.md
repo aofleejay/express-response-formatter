@@ -33,6 +33,7 @@ app.listen(3000, () => console.log('Start at http://localhost:3000'))
 res.ok({ name: 'John Doe' })
 ```
 ```json
+HTTP/1.1 200 Ok
 {
     "status": "success",
     "data": {
@@ -45,9 +46,23 @@ res.ok({ name: 'John Doe' })
 res.badRequest()
 ```
 ```json
+HTTP/1.1 400 Bad Request
 {
     "status": "fail",
     "message": "Bad Request"
+}
+```
+
+#### 400 With Parameter ####
+```js
+res.badRequest('Invalid parameter.')
+```
+```json
+HTTP/1.1 400 Bad Request
+{
+    "status": "fail",
+    "message": "Bad Request",
+    "error": "Invalid parameter."
 }
 ```
 #### 502 ####
@@ -55,6 +70,7 @@ res.badRequest()
 res.badGateway()
 ```
 ```json
+HTTP/1.1 502 Bad Gateway
 {
     "status": "error",
     "message": "Bad Gateway"
