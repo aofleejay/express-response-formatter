@@ -2,7 +2,15 @@
   "name": "expressjs-response",
   "version": "1.0.2",
   "main": "src/index.js",
+  "scripts": {
+    "build": "babel src/ -d lib/"
+  },
   "repository": "https://github.com/aofleejay/expressjs-response.git",
   "author": "kunapot <kunapot@thinknet.co.th>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.63.1"
+  }
 }

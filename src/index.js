@@ -1,7 +1,9 @@
+// @flow
+
 const methods = require('./methods')
 const { getStatusByCode } = require('./helpers')
 
-const responseEnhancer = (options) => (req, res, next) => {
+const responseEnhancer = (options: { withStatusCode?: boolean }) => (req: any, res: any, next: () => void) => {
   _enhanceMethods(res, options)
   next()
 }

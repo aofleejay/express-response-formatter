@@ -1,27 +1,29 @@
+// @flow
+
 const methods = [
   {
     name: 'ok',
     code: 200,
-    getResponse: ({ data }) => ({
+    getResponse: ({ data }: { data: any }) => ({
       data,
     })
   },
   {
     name: 'created',
     code: 201,
-    getResponse: ({ data }) => ({
+    getResponse: ({ data }: { data: any }) => ({
       data,
     })
   },
   {
     name: 'noContent',
     code: 204,
-    getResponse: () => {}
+    getResponse: ({ data }: { data?: any }) => {}
   },
   {
     name: 'badRequest',
     code: 400,
-    getResponse: ({ data }) => ({
+    getResponse: ({ data }: { data: any }) => ({
       message: 'Bad Request',
       error: data,
     })
@@ -29,7 +31,7 @@ const methods = [
   {
     name: 'unauthorized',
     code: 401,
-    getResponse: ({ data }) => ({
+    getResponse: ({ data }: { data: any }) => ({
       message: 'Unauthorized',
       error: data,
     })
@@ -37,7 +39,7 @@ const methods = [
   {
     name: 'forbidden',
     code: 403,
-    getResponse: ({ data }) => ({
+    getResponse: ({ data }: { data: any }) => ({
       message: 'Forbidden',
       error: data,
     })
@@ -45,7 +47,7 @@ const methods = [
   {
     name: 'notFound',
     code: 404,
-    getResponse: ({ data }) => ({
+    getResponse: ({ data }: { data: any }) => ({
       message: 'Not Found',
       error: data,
     })
@@ -53,7 +55,7 @@ const methods = [
   {
     name: 'methodNotAllowed',
     code: 404,
-    getResponse: ({ data }) => ({
+    getResponse: ({ data }: { data: any }) => ({
       message: 'Method Not Allowed',
       error: data,
     })
@@ -61,7 +63,7 @@ const methods = [
   {
     name: 'unprocessableEntity',
     code: 422,
-    getResponse: ({ data }) => ({
+    getResponse: ({ data }: { data: any }) => ({
       message: 'Unprocessable Entity',
       error: data,
     })
@@ -69,28 +71,28 @@ const methods = [
   {
     name: 'internalServerError',
     code: 500,
-    getResponse: () => ({
+    getResponse: ({ data }: { data?: any }) => ({
       message: 'Internal Server Error',
     })
   },
   {
     name: 'badGateway',
     code: 502,
-    getResponse: () => ({
+    getResponse: ({ data }: { data?: any }) => ({
       message: 'Bad Gateway',
     })
   },
   {
     name: 'serviceUnavailable',
     code: 503,
-    getResponse: () => ({
+    getResponse: ({ data }: { data?: any }) => ({
       message: 'Service Unavailable',
     })
   },
   {
     name: 'gatewayTimeout',
     code: 504,
-    getResponse: () => ({
+    getResponse: ({ data }: { data?: any }) => ({
       message: 'Gateway Timeout',
     })
   }
