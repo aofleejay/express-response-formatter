@@ -69,6 +69,7 @@ res.badGateway()
 | res.noContent()               | 204  |               -                |
 | res.badRequest()              | 400  | res.badRequest(error)          |
 | res.unauthorized()            | 401  | res.unauthorized(error)        |
+| res.forbidden()               | 403  | res.forbidden(error)           |
 | res.notFound()                | 404  | res.notFound(error)            |
 | res.methodNotAllowed()        | 405  | res.methodNotAllowed(error)    |
 | res.unprocessableEntity()     | 422  | res.unprocessableEntity(error) |

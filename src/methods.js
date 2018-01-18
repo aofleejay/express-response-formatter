@@ -35,6 +35,14 @@ const methods = [
     })
   },
   {
+    name: 'forbidden',
+    code: 403,
+    getResponse: ({ data }) => ({
+      message: 'Forbidden',
+      error: data,
+    })
+  },
+  {
     name: 'notFound',
     code: 404,
     getResponse: ({ data }) => ({
