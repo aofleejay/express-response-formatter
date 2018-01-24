@@ -4,10 +4,10 @@ const methods = require('./methods')
 
 type options = {
   withStatusCode?: boolean;
-  withStatusMessage?: number;
+  withStatusMessage?: boolean;
 }
 
-const responseEnhancer = (options?: options) => (req, res, next) => {
+const responseEnhancer = (options?: options) => (req, res, next: () => void) => {
   _enhanceMethods(res, options)
   next()
 }
