@@ -1,16 +1,19 @@
 {
   "name": "expressjs-response",
   "version": "1.0.2",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "babel src/ -d lib/"
+    "build": "babel src/ -d lib/",
+    "demo": "nodemon example/index.js"
   },
   "repository": "https://github.com/aofleejay/expressjs-response.git",
   "author": "kunapot <kunapot@thinknet.co.th>",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-flow": "^6.23.0",
-    "flow-bin": "^0.63.1"
+    "babel-cli": "6.26.0",
+    "babel-preset-flow": "6.23.0",
+    "express": "4.16.2",
+    "flow-bin": "0.63.1",
+    "nodemon": "1.14.11"
   }
 }
