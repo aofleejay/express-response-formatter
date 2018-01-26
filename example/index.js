@@ -1,5 +1,5 @@
 const express = require('express')
-const responseEnhancer = require('../lib')
+const responseEnhancer = require('expressjs-response')
 
 const app = express()
 

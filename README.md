@@ -17,11 +17,12 @@ const app = express()
 // use in express middleware
 app.use(responseEnhancer({
   withStatusCode: true, // Include status code in response body.
+  withStatusMessage: true, // Include status message in response body.
 }))
 
 // example usage
 app.get('/success', (req, res) => res.ok({ name: 'John Doe' }))
-app.get('/badrequest', (req, res) => res.badRequest())
+app.get('/badrequest', (req, res) => res.badRequest('Invalid parameter.'))
 app.get('/badgateway', (req, res) => res.badGateway())
 
 app.listen(3000, () => console.log('Start at http://localhost:3000'))
@@ -49,7 +50,10 @@ res.badRequest()
 HTTP/1.1 400 Bad Request
 {
     "status": "fail",
-    "message": "Bad Request"
+    "error": {
+        "code": "400",
+        "message": "Bad Request"
+    }
 }
 ```
 
@@ -61,8 +65,11 @@ res.badRequest('Invalid parameter.')
 HTTP/1.1 400 Bad Request
 {
     "status": "fail",
-    "message": "Bad Request",
-    "error": "Invalid parameter."
+    "error": {
+        "code": "400",
+        "message": "Bad Request",
+        "detail": "Invalid parameter."
+    }
 }
 ```
 #### 502 ####
@@ -73,7 +80,10 @@ res.badGateway()
 HTTP/1.1 502 Bad Gateway
 {
     "status": "error",
-    "message": "Bad Gateway"
+    "error": {
+        "code": "502",
+        "message": "Bad Gateway"
+    }
 }
 ```
 
@@ -89,7 +99,7 @@ HTTP/1.1 502 Bad Gateway
 | res.notFound()                | 404  | res.notFound(error)            |
 | res.methodNotAllowed()        | 405  | res.methodNotAllowed(error)    |
 | res.unprocessableEntity()     | 422  | res.unprocessableEntity(error) |
-| res.internalServerError()     | 500  |               -                |
-| res.badGateway()              | 502  |               -                |
-| res.serviceUnavailable()      | 503  |               -                |
-| res.gatewayTimeout()          | 504  |               -                |
+| res.internalServerError()     | 500  | res.internalServerError(error) |
+| res.badGateway()              | 502  | res.badGateway(error)          |
+| res.serviceUnavailable()      | 503  | res.serviceUnavailable(error)  |
+| res.gatewayTimeout()          | 504  | res.gatewayTimeout(error)      |
