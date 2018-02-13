@@ -1,4 +1,5 @@
-# Expressjs Response #
+# Expressjs Response [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aofleejay/expressjs-response/blob/master/LICENSE.md) [![npm](https://img.shields.io/badge/npm-1.0.3-brightgreen.svg)](https://www.npmjs.com/package/expressjs-response)
+
 Express middleware to generate JSON response
 
 ## Installation ##
@@ -103,8 +104,3 @@ HTTP/1.1 502 Bad Gateway
 | res.badGateway()              | 502  | res.badGateway(error)          |
 | res.serviceUnavailable()      | 503  | res.serviceUnavailable(error)  |
 | res.gatewayTimeout()          | 504  | res.gatewayTimeout(error)      |
-
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/aofleejay/expressjs-response/badge.svg?style=beer-square)](https://beerpay.io/aofleejay/expressjs-response)  [![Beerpay](https://beerpay.io/aofleejay/expressjs-response/make-wish.svg?style=flat-square)](https://beerpay.io/aofleejay/expressjs-response?focus=wish)
