@@ -11,7 +11,7 @@ npm install expressjs-response --save
 Use as Express middleware
 ```js
 import express from 'express'
-import responseEnhancer from 'exressjs-response'
+import responseEnhancer from 'expressjs-response'
 
 const app = express()
 
