@@ -1,65 +1,64 @@
-// @flow
-
 const methods = require('./methods')
 
-type options = {
-  withStatusCode?: boolean;
-  withStatusMessage?: boolean;
-}
-
-const responseEnhancer = (options?: options) => (req: any, res: any, next: () => void) => {
-  _enhanceMethods(res, options)
+/**
+ * Express middleware for enhance response with stuff of response formatter.
+ * @returns {Function} An express middleware for enhance an express response object.
+ * @public
+ */
+const responseEnhancer = () => (req, res, next) => {
+  res.formatter = _generateFormatters(res)
   next()
 }
 
-const _enhanceMethods = (res, inputOptions) => {
-  const defaultOptions = { withStatusCode: false, withStatusMessage: false }
-  const options = inputOptions || defaultOptions
+/**
+ * Function to generate formatter object.
+ * @param {Object} res An express response object.
+ * @returns {Object} Formatter object that contain response formatter functions.
+ * @private
+ */
+const _generateFormatters = (res) => {
+  const formatter = {}
   let responseBody = {}
 
-  methods.map(method => {
-    const { name, code, message, status } = method
-
-    res[name] = (data) => {
-      if (status === 'success') {
-        responseBody = _generateSuccessResponse({ code, message, data }, options)
-      } else if (status === 'fail' || status === 'error') {
-        responseBody = _generateErrorResponse({ status, code, message, detail: data })
+  methods.map((method) => {
+    if (method.isSuccess) {
+      formatter[method.name] = (data, meta) => {
+        responseBody = _generateSuccessResponse({ data, meta })
+        res.status(method.code).json(responseBody)
       }
-
-      res.status(code).json(responseBody)
+    } else {
+      formatter[method.name] = (errors) => {
+        responseBody = _generateErrorResponse({ errors })
+        res.status(method.code).json(responseBody)
+      }
     }
   })
+
+  return formatter
 }
 
-type successResponse = {
-  status?: string,
-  code: string,
-  message: string,
-  data: any,
-}
-
-type errorResponse = {
-  status: string,
-  code: string,
-  message: string,
-  detail: any,
-}
-
-const _generateSuccessResponse = ({ status = 'success', code, message, data }: successResponse, { withStatusCode, withStatusMessage }: options) => ({
-  status,
-  code: withStatusCode ? code : undefined,
-  message: withStatusMessage ? message: undefined,
+/**
+ * Function to generate a success response format.
+ * @param {Object} response Response input.
+ * @param {*} response.data Meta field.
+ * @param {Object=} response.meta Data field.
+ * @returns {Object} Formatted response.
+ * @private
+ */
+const _generateSuccessResponse = ({ data, meta }) => ({
+  meta,
   data,
 })
 
-const _generateErrorResponse = ({ status, code, message, detail }: errorResponse) => ({
-  status,
-  error: {
-    code,
-    message,
-    detail,
-  },
+/**
+ * Function to generate an errors response format.
+ * @param {Object} response Response input.
+ * @param {Array} response.errors Errors field.
+ * @returns {Object} Formatted response.
+ * @private
+ */
+const _generateErrorResponse = ({ errors }) => ({
+  errors,
 })
 
 module.exports = responseEnhancer

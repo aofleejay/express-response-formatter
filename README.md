@@ -1,106 +1,123 @@
-# Expressjs Response [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aofleejay/expressjs-response/blob/master/LICENSE.md) [![npm](https://img.shields.io/badge/npm-1.0.3-brightgreen.svg)](https://www.npmjs.com/package/expressjs-response)
+# express-response-formatter [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aofleejay/express-response-formatter/blob/master/LICENSE.md) [![npm](https://img.shields.io/badge/npm-1.0.0-brightgreen.svg)](https://www.npmjs.com/package/express-response-formatter)
 
-Express middleware to generate JSON response
+Format express json response with "express-response-formatter"
 
 ## Installation ##
 ```
-npm install expressjs-response --save
+npm install express-response-formatter --save
 ```
 
 ## Quick Start ##
-Use as Express middleware
+Example usage
 ```js
-import express from 'express'
-import responseEnhancer from 'expressjs-response'
+const app = require('express')()
+const responseEnhancer = require('express-response-formatter')
 
-const app = express()
+// Add formatter functions to "res" object via "responseEnhancer()"
+app.use(responseEnhancer())
 
-// use in express middleware
-app.use(responseEnhancer({
-  withStatusCode: true, // Include status code in response body.
-  withStatusMessage: true, // Include status message in response body.
-}))
+app.get('/success', (req, res) => {
+  const users = [
+    { name: 'Dana Kennedy' },
+    { name: 'Warren Young' },
+  ]
 
-// example usage
-app.get('/success', (req, res) => res.ok({ name: 'John Doe' }))
-app.get('/badrequest', (req, res) => res.badRequest('Invalid parameter.'))
-app.get('/badgateway', (req, res) => res.badGateway())
+  // It's enhance "res" with "formatter" which contain formatter functions
+  res.formatter.ok(users)
+})
 
 app.listen(3000, () => console.log('Start at http://localhost:3000'))
 ```
+Result
+```json
+HTTP/1.1 200 Ok
+{
+  "data": [
+    {
+      "name": "Dana Kennedy"
+    },
+    {
+      "name": "Warren Young"
+    }
+  ]
+}
+```
 
-## Example Response ##
-#### 200 ####
+## More usages ##
+200 OK with "meta field"
 ```js
-res.ok({ name: 'John Doe' })
+app.get('/success-with-meta', (req, res) => {
+  const users = [
+    { name: 'Dana Kennedy' },
+    { name: 'Warren Young' },
+  ]
+
+  const meta = {
+    total: 2,
+    limit: 10,
+    offset: 0,
+  }
+
+  res.formatter.ok(users, meta)
+})
 ```
 ```json
 HTTP/1.1 200 Ok
 {
-    "status": "success",
-    "data": {
-        "name": "John Doe"
+  "meta": {
+    "total": 2,
+    "limit": 10,
+    "offset": 0,
+  },
+  "data": [
+    {
+      "name": "Dana Kennedy"
+    },
+    {
+      "name": "Warren Young"
     }
+  ]
 }
 ```
-#### 400 ####
+400 Bad Request with "multiple errors"
 ```js
-res.badRequest()
+app.get('/bad-request', (req, res) => {
+  const errors = [
+    { detail: 'Field id is required.' },
+    { detail: 'Field foo is required.' },
+  ]
+
+  res.formatter.badRequest(errors)
+})
 ```
 ```json
 HTTP/1.1 400 Bad Request
 {
-    "status": "fail",
-    "error": {
-        "code": "400",
-        "message": "Bad Request"
+  "errors": [
+    {
+      "detail": "Field id is required."
+    },
+    {
+      "detail": "Field foo is required."
     }
+  ]
 }
 ```
 
-#### 400 With Parameter ####
-```js
-res.badRequest('Invalid parameter.')
-```
-```json
-HTTP/1.1 400 Bad Request
-{
-    "status": "fail",
-    "error": {
-        "code": "400",
-        "message": "Bad Request",
-        "detail": "Invalid parameter."
-    }
-}
-```
-#### 502 ####
-```js
-res.badGateway()
-```
-```json
-HTTP/1.1 502 Bad Gateway
-{
-    "status": "error",
-    "error": {
-        "code": "502",
-        "message": "Bad Gateway"
-    }
-}
-```
 
-## API ##
-|         METHOD                | CODE |       PARAMS                   |
-|-------------------------------|------|--------------------------------|
-| res.ok()                      | 200  | res.ok(data)                   |
-| res.created()                 | 201  | res.created(data)              |
-| res.noContent()               | 204  |               -                |
-| res.badRequest()              | 400  | res.badRequest(error)          |
-| res.unauthorized()            | 401  | res.unauthorized(error)        |
-| res.forbidden()               | 403  | res.forbidden(error)           |
-| res.notFound()                | 404  | res.notFound(error)            |
-| res.methodNotAllowed()        | 405  | res.methodNotAllowed(error)    |
-| res.unprocessableEntity()     | 422  | res.unprocessableEntity(error) |
-| res.internalServerError()     | 500  | res.internalServerError(error) |
-| res.badGateway()              | 502  | res.badGateway(error)          |
-| res.serviceUnavailable()      | 503  | res.serviceUnavailable(error)  |
-| res.gatewayTimeout()          | 504  | res.gatewayTimeout(error)      |
+## APIs ##
+|                   METHOD                   | STATUS CODE |
+|--------------------------------------------|-------------|
+| res.formatter.ok(data, meta?)              |     200     |
+| res.formatter.created(data, meta?)         |     201     |
+| res.formatter.noContent(data, meta?)       |     204     |
+| res.formatter.badRequest(errors)           |     400     |
+| res.formatter.unauthorized(errors)         |     401     |
+| res.formatter.forbidden(errors)            |     403     |
+| res.formatter.notFound(errors)             |     404     |
+| res.formatter.methodNotAllowed(errors)     |     405     |
+| res.formatter.unprocess(errors)            |     422     |
+| res.formatter.serverError(errors)          |     500     |
+| res.formatter.badGateway(errors)           |     502     |
+| res.formatter.serviceUnavailable(errors)   |     503     |
+| res.formatter.gatewayTimeout(errors)       |     504     |

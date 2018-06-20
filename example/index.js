@@ -1,17 +1,43 @@
-const express = require('express')
-const responseEnhancer = require('expressjs-response')
+const app = require('express')()
+const responseEnhancer = require('express-response-formatter')
 
-const app = express()
+// Add formatter functions to "res" object via "responseEnhancer()"
+app.use(responseEnhancer())
 
-// use in express middleware
-app.use(responseEnhancer({
-  withStatusCode: true, // Include status code in response body (optional).
-  withStatusMessage: true, // Include status message in response body (optional).
-}))
+// Example usage: 200 OK
+app.get('/success', (req, res) => {
+  const users = [
+    { name: 'Dana Kennedy' },
+    { name: 'Warren Young' },
+  ]
 
-// example usage
-app.get('/success', (req, res) => res.ok({ name: 'John Doe' }))
-app.get('/badrequest', (req, res) => res.badRequest('Invalid parameter.'))
-app.get('/badgateway', (req, res) => res.badGateway())
+  res.formatter.ok(users)
+})
+
+// Example usage: 200 OK with "meta field"
+app.get('/success-with-meta', (req, res) => {
+  const users = [
+    { name: 'Dana Kennedy' },
+    { name: 'Warren Young' },
+  ]
+
+  const meta = {
+    total: 2,
+    limit: 10,
+    offset: 0,
+  }
+
+  res.formatter.ok(users, meta)
+})
+
+// Example usage: 400 Bad Request with "multiple errors"
+app.get('/bad-request', (req, res) => {
+  const errors = [
+    { detail: 'Field id is required.' },
+    { detail: 'Field foo is required.' },
+  ]
+
+  res.formatter.badRequest(errors)
+})
 
 app.listen(3000, () => console.log('Start at http://localhost:3000'))

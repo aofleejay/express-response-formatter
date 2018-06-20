@@ -1,16 +1,17 @@
 {
-  "name": "expressjs-response",
-  "version": "1.0.4",
+  "name": "express-response-formatter",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src/ -d lib/",
     "demo": "nodemon example/index.js"
   },
-  "repository": "https://github.com/aofleejay/expressjs-response.git",
-  "author": "kunapot <kunapot@thinknet.co.th>",
+  "repository": "https://github.com/aofleejay/express-response-formatter.git",
+  "author": "kunapot <aofleejay@github.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "6.26.0",
+    "babel-preset-env": "1.7.0",
     "babel-preset-flow": "6.23.0",
     "express": "4.16.2",
     "flow-bin": "0.63.1",
