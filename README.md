@@ -1,6 +1,6 @@
 # express-response-formatter [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aofleejay/express-response-formatter/blob/master/LICENSE.md) [![npm](https://img.shields.io/badge/npm-1.0.0-brightgreen.svg)](https://www.npmjs.com/package/express-response-formatter)
 
-Format express json response with "express-response-formatter"
+Better way to format Express response
 
 ## Installation ##
 ```
