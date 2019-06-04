@@ -1,10 +1,11 @@
 {
   "name": "express-response-formatter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src/ -d lib/",
-    "demo": "nodemon example/index.js"
+    "demo": "nodemon example/index.js",
+    "format": "prettier --write src/**/*.js"
   },
   "repository": "https://github.com/aofleejay/express-response-formatter.git",
   "author": "kunapot <aofleejay@github.com>",
@@ -15,6 +16,14 @@
     "babel-preset-flow": "6.23.0",
     "express": "4.16.2",
     "flow-bin": "0.63.1",
-    "nodemon": "1.14.11"
+    "husky": "2.3.0",
+    "nodemon": "1.14.11",
+    "prettier": "1.17.1",
+    "pretty-quick": "1.11.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
