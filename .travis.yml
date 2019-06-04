@@ -12,5 +12,3 @@ before_script:
 script:
   - 'yarn test'
   - 'yarn build'
-after_success:
-  - 'yarn deploy'
