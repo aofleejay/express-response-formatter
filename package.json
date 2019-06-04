@@ -5,7 +5,8 @@
   "scripts": {
     "build": "babel src/ -d lib/",
     "demo": "nodemon example/index.js",
-    "format": "prettier --write src/**/*.js"
+    "format": "prettier --write src/**/*.js",
+    "test": "jest"
   },
   "repository": "https://github.com/aofleejay/express-response-formatter.git",
   "author": "kunapot <aofleejay@github.com>",
@@ -16,9 +17,11 @@
     "@babel/preset-env": "7.4.5",
     "express": "4.16.2",
     "husky": "2.3.0",
+    "jest": "24.8.0",
     "nodemon": "1.14.11",
     "prettier": "1.17.1",
-    "pretty-quick": "1.11.0"
+    "pretty-quick": "1.11.0",
+    "supertest": "4.0.2"
   },
   "husky": {
     "hooks": {
