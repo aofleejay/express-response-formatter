@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Use prettier.
 - Add 2xx, 4xx test.
+- Add accepted, timeout, conflict and tooManyRequests method.
 
 ### Changed
 
