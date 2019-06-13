@@ -1,4 +1,6 @@
-# express-response-formatter [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aofleejay/express-response-formatter/blob/master/LICENSE.md) [![npm](https://img.shields.io/npm/v/express-response-formatter.svg)](https://www.npmjs.com/package/express-response-formatter) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com) [![Build Status](https://travis-ci.org/aofleejay/express-response-formatter.svg?branch=master)](https://travis-ci.org/aofleejay/express-response-formatter)
+# express-response-formatter
+
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aofleejay/express-response-formatter/blob/master/LICENSE.md) [![npm](https://img.shields.io/npm/v/express-response-formatter.svg)](https://www.npmjs.com/package/express-response-formatter) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com) [![Build Status](https://travis-ci.org/aofleejay/express-response-formatter.svg?branch=master)](https://travis-ci.org/aofleejay/express-response-formatter)
 
 Better way to format Express response
 
