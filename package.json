@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "repository": "https://github.com/aofleejay/express-response-formatter.git",
-  "author": "kunapot <aofleejay@github.com>",
+  "author": "aofleejay",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "7.4.4",
