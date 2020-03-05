@@ -1,14 +1,17 @@
 language: node_js
 node_js:
   - '12.16.1'
-deploy:
-  provider: npm
-  email: '$EMAIL_ADDRESS'
-  api_key: '$AUTH_TOKEN'
-  on:
-    tags: true
 before_script:
   - 'yarn'
   - 'yarn build'
 script:
   - 'yarn test'
+before_deploy:
+  - cd lib
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: '$EMAIL_ADDRESS'
+  api_key: '$AUTH_TOKEN'
+  on:
+    tags: true
