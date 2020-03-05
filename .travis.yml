@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - '12.16.1'
+deploy:
+  provider: npm
+  email: '$EMAIL_ADDRESS'
+  api_key: '$AUTH_TOKEN'
+  on:
+    tags: true
+before_script:
+  - 'yarn'
+script:
+  - 'yarn test'
+  - 'yarn build'
