@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {
-    "tsc": "tsc",
-    "tsc:watch": "tsc --watch",
+    "build": "tsc",
     "demo": "nodemon example/index.js"
   },
   "repository": "https://github.com/aofleejay/express-response-formatter.git",
