@@ -1,48 +1,42 @@
-'use strict'
+import methods from './methods'
 
-var methods = require('./methods')
 /**
  * Express middleware for enhance response with stuff of response formatter.
  * @returns {Function} An express middleware for enhance an express response object.
  * @public
  */
-
-var responseEnhancer = function responseEnhancer() {
-  return function(req, res, next) {
-    res.formatter = _generateFormatters(res)
-    next()
-  }
+const responseEnhancer = () => (req, res, next) => {
+  res.formatter = _generateFormatters(res)
+  next()
 }
+
 /**
  * Function to generate formatter object.
  * @param {Object} res An express response object.
  * @returns {Object} Formatter object that contain response formatter functions.
  * @private
  */
+const _generateFormatters = res => {
+  const formatter = {}
+  let responseBody = {}
 
-var _generateFormatters = function _generateFormatters(res) {
-  var formatter = {}
-  var responseBody = {}
-  methods.map(function(method) {
+  methods.map(method => {
     if (method.isSuccess) {
-      formatter[method.name] = function(data, meta) {
-        responseBody = _generateSuccessResponse({
-          data: data,
-          meta: meta,
-        })
+      formatter[method.name] = (data, meta) => {
+        responseBody = _generateSuccessResponse({ data, meta })
         res.status(method.code).json(responseBody)
       }
     } else {
-      formatter[method.name] = function(errors) {
-        responseBody = _generateErrorResponse({
-          errors: errors,
-        })
+      formatter[method.name] = errors => {
+        responseBody = _generateErrorResponse({ errors })
         res.status(method.code).json(responseBody)
       }
     }
   })
+
   return formatter
 }
+
 /**
  * Function to generate a success response format.
  * @param {Object} response Response input.
@@ -51,15 +45,11 @@ var _generateFormatters = function _generateFormatters(res) {
  * @returns {Object} Formatted response.
  * @private
  */
+const _generateSuccessResponse = ({ data, meta }) => ({
+  meta,
+  data,
+})
 
-var _generateSuccessResponse = function _generateSuccessResponse(_ref) {
-  var data = _ref.data,
-    meta = _ref.meta
-  return {
-    meta: meta,
-    data: data,
-  }
-}
 /**
  * Function to generate an errors response format.
  * @param {Object} response Response input.
@@ -67,12 +57,8 @@ var _generateSuccessResponse = function _generateSuccessResponse(_ref) {
  * @returns {Object} Formatted response.
  * @private
  */
+const _generateErrorResponse = ({ errors }) => ({
+  errors,
+})
 
-var _generateErrorResponse = function _generateErrorResponse(_ref2) {
-  var errors = _ref2.errors
-  return {
-    errors: errors,
-  }
-}
-
-module.exports = responseEnhancer
+export default responseEnhancer
