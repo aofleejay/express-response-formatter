@@ -8,6 +8,6 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "express-response-formatter": "^1.2.2"
+    "express-response-formatter": "^1.2.3"
   }
 }

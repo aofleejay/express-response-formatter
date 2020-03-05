@@ -19,12 +19,6 @@ const methods: Method[] = [
     isSuccess: true,
   },
   {
-    name: 'accepted',
-    code: '202',
-    message: 'Accepted',
-    isSuccess: true,
-  },
-  {
     name: 'noContent',
     code: '204',
     message: 'No Content',
@@ -61,27 +55,9 @@ const methods: Method[] = [
     isSuccess: false,
   },
   {
-    name: 'timeout',
-    code: '408',
-    message: 'Request Timeout',
-    isSuccess: false,
-  },
-  {
-    name: 'conflict',
-    code: '409',
-    message: 'Conflict',
-    isSuccess: false,
-  },
-  {
     name: 'unprocess',
     code: '422',
     message: 'Unprocessable Entity',
-    isSuccess: false,
-  },
-  {
-    name: 'tooManyRequests',
-    code: '429',
-    message: 'Too Many Requests',
     isSuccess: false,
   },
   {
@@ -110,4 +86,5 @@ const methods: Method[] = [
   },
 ]
 
+export { Method }
 export default methods

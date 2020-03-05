@@ -2,11 +2,10 @@ import express from 'express'
 import request from 'supertest'
 import responseEnhancer from '../src/index'
 
-describe('Test avaliable methods.', () => {
-  let app
+const app = express()
 
+describe('Test avaliable methods.', () => {
   beforeAll(() => {
-    app = express()
     app.use(responseEnhancer())
 
     app.get('/success-with-meta', function(req, res) {

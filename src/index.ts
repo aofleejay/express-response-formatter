@@ -1,35 +1,41 @@
-import methods from './methods'
+import { Express, Request, Response, NextFunction } from 'express'
+import methods, { Method } from './methods'
 
-/**
- * Express middleware for enhance response with stuff of response formatter.
- * @returns {Function} An express middleware for enhance an express response object.
- * @public
- */
-const responseEnhancer = () => (req, res, next) => {
+interface LooseObject {
+  [key: string]: any
+}
+
+declare global {
+  namespace Express {
+    interface Response {
+      formatter: LooseObject
+    }
+  }
+}
+
+const responseEnhancer = () => (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
   res.formatter = _generateFormatters(res)
   next()
 }
 
-/**
- * Function to generate formatter object.
- * @param {Object} res An express response object.
- * @returns {Object} Formatter object that contain response formatter functions.
- * @private
- */
-const _generateFormatters = res => {
-  const formatter = {}
+const _generateFormatters = (res: Response) => {
+  const formatter: LooseObject = {}
   let responseBody = {}
 
-  methods.map(method => {
+  methods.map((method: Method) => {
     if (method.isSuccess) {
-      formatter[method.name] = (data, meta) => {
+      formatter[method.name] = (data: any, meta: any) => {
         responseBody = _generateSuccessResponse({ data, meta })
-        res.status(method.code).json(responseBody)
+        res.status(parseInt(method.code)).json(responseBody)
       }
     } else {
-      formatter[method.name] = errors => {
+      formatter[method.name] = (errors: any[]) => {
         responseBody = _generateErrorResponse({ errors })
-        res.status(method.code).json(responseBody)
+        res.status(parseInt(method.code)).json(responseBody)
       }
     }
   })
@@ -37,27 +43,21 @@ const _generateFormatters = res => {
   return formatter
 }
 
-/**
- * Function to generate a success response format.
- * @param {Object} response Response input.
- * @param {*} response.data Meta field.
- * @param {Object=} response.meta Data field.
- * @returns {Object} Formatted response.
- * @private
- */
-const _generateSuccessResponse = ({ data, meta }) => ({
+interface SuccessInput {
+  data: any
+  meta: any
+}
+
+const _generateSuccessResponse = ({ data, meta }: SuccessInput) => ({
   meta,
   data,
 })
 
-/**
- * Function to generate an errors response format.
- * @param {Object} response Response input.
- * @param {Array} response.errors Errors field.
- * @returns {Object} Formatted response.
- * @private
- */
-const _generateErrorResponse = ({ errors }) => ({
+interface ErrorsInput {
+  errors: any[]
+}
+
+const _generateErrorResponse = ({ errors }: ErrorsInput) => ({
   errors,
 })
 
