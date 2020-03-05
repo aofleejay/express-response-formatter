@@ -9,6 +9,6 @@ deploy:
     tags: true
 before_script:
   - 'yarn'
+  - 'yarn build'
 script:
   - 'yarn test'
-  - 'yarn build'
