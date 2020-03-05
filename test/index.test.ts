@@ -1,9 +1,12 @@
-const app = require('express')()
-const request = require('supertest')
-const responseEnhancer = require('../src/index')
+import express from 'express'
+import request from 'supertest'
+import responseEnhancer from '../src/index'
 
 describe('Test avaliable methods.', () => {
+  let app
+
   beforeAll(() => {
+    app = express()
     app.use(responseEnhancer())
 
     app.get('/success-with-meta', function(req, res) {

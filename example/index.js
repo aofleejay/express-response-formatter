@@ -6,20 +6,14 @@ app.use(responseEnhancer())
 
 // Example usage: 200 OK
 app.get('/success', (req, res) => {
-  const users = [
-    { name: 'Dana Kennedy' },
-    { name: 'Warren Young' },
-  ]
+  const users = [{ name: 'Dana Kennedy' }, { name: 'Warren Young' }]
 
   res.formatter.ok(users)
 })
 
 // Example usage: 200 OK with "meta field"
 app.get('/success-with-meta', (req, res) => {
-  const users = [
-    { name: 'Dana Kennedy' },
-    { name: 'Warren Young' },
-  ]
+  const users = [{ name: 'Dana Kennedy' }, { name: 'Warren Young' }]
 
   const meta = {
     total: 2,
