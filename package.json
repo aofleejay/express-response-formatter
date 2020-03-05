@@ -3,18 +3,27 @@
   "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src/ -d lib/",
+    "tsc": "tsc",
+    "tsc:watch": "tsc --watch",
     "demo": "nodemon example/index.js"
   },
   "repository": "https://github.com/aofleejay/express-response-formatter.git",
   "author": "kunapot <aofleejay@github.com>",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-flow": "6.23.0",
-    "express": "4.16.2",
-    "flow-bin": "0.63.1",
-    "nodemon": "1.14.11"
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
+    "eslint": "^6.8.0",
+    "express": "^4.17.1",
+    "husky": "^4.2.3",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }

@@ -1,4 +1,11 @@
-const methods = [
+interface Method {
+  name: string
+  code: string
+  message: string
+  isSuccess: boolean
+}
+
+const methods: Method[] = [
   {
     name: 'ok',
     code: '200',
@@ -79,4 +86,4 @@ const methods = [
   },
 ]
 
-module.exports = methods
+export default methods

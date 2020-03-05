@@ -1,4 +1,4 @@
-const methods = require('./methods')
+import methods from './methods'
 
 /**
  * Express middleware for enhance response with stuff of response formatter.
@@ -16,18 +16,18 @@ const responseEnhancer = () => (req, res, next) => {
  * @returns {Object} Formatter object that contain response formatter functions.
  * @private
  */
-const _generateFormatters = (res) => {
+const _generateFormatters = res => {
   const formatter = {}
   let responseBody = {}
 
-  methods.map((method) => {
+  methods.map(method => {
     if (method.isSuccess) {
       formatter[method.name] = (data, meta) => {
         responseBody = _generateSuccessResponse({ data, meta })
         res.status(method.code).json(responseBody)
       }
     } else {
-      formatter[method.name] = (errors) => {
+      formatter[method.name] = errors => {
         responseBody = _generateErrorResponse({ errors })
         res.status(method.code).json(responseBody)
       }
@@ -61,4 +61,4 @@ const _generateErrorResponse = ({ errors }) => ({
   errors,
 })
 
-module.exports = responseEnhancer
+export default responseEnhancer
