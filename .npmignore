@@ -1,0 +1,9 @@
+/example
+/src
+/test
+.eslintrc.json
+.gitignore
+.prettierrc
+.travis.yml
+jest.config.js
+tsconfig.json
