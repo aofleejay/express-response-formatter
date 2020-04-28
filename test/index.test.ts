@@ -1,6 +1,6 @@
 import express from 'express'
 import request from 'supertest'
-import responseEnhancer from '../src/index'
+import { responseEnhancer } from '../src/index'
 
 const app = express()
 
