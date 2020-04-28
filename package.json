@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "format": "prettier --write src/**/*.ts",
-    "test": "jest"
+    "test": "jest",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "repository": "https://github.com/aofleejay/express-response-formatter.git",
   "author": "aofleejay",
@@ -17,6 +18,7 @@
     "@types/supertest": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^2.22.0",
     "@typescript-eslint/parser": "^2.22.0",
+    "coveralls": "^3.1.0",
     "eslint": "^6.8.0",
     "express": "^4.17.1",
     "husky": "^4.2.3",
