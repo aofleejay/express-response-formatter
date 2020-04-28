@@ -24,7 +24,7 @@ app.get('/success-with-meta', (req, res) => {
   res.formatter.ok(users, meta)
 })
 
-// Example usage: 400 Bad Request with "multiple errors"
+// Example usage: 400 Bad Request with "error"
 app.get('/bad-request', (req, res) => {
   const errors = [
     { detail: 'Field id is required.' },
@@ -32,6 +32,18 @@ app.get('/bad-request', (req, res) => {
   ]
 
   res.formatter.badRequest(errors)
+})
+
+// Example usage: 400 Bad Request with "error" and "meta"
+app.get('/bad-request-with-meta', (req, res) => {
+  const errors = [
+    { detail: 'Field id is required.' },
+    { detail: 'Field foo is required.' },
+  ]
+
+  const meta = { trackId: '12345' }
+
+  res.formatter.badRequest(errors, meta)
 })
 
 app.listen(3000, () => console.log('Start at http://localhost:3000'))
