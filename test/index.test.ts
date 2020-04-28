@@ -16,9 +16,10 @@ describe('Test avaliable methods.', () => {
     })
 
     app.get('/not-found', function(req, res) {
+      const meta = { trackId: '12345' }
       const errors = [{ message: 'NOT_FOUND', detail: 'User not found.' }]
 
-      res.formatter.notFound(errors)
+      res.formatter.notFound(errors, meta)
     })
   })
 
@@ -47,6 +48,7 @@ describe('Test avaliable methods.', () => {
       .end((err, res) => {
         if (err) return done(err)
         expect(res.body).toEqual({
+          meta: { trackId: '12345' },
           error: [{ detail: 'User not found.', message: 'NOT_FOUND' }],
         })
         done()

@@ -33,8 +33,8 @@ const _generateFormatters = (res: Response) => {
         res.status(parseInt(method.code)).json(responseBody)
       }
     } else {
-      formatter[method.name] = (error: any) => {
-        responseBody = _generateErrorResponse({ error })
+      formatter[method.name] = (error: any, meta: any) => {
+        responseBody = _generateErrorResponse({ error, meta })
         res.status(parseInt(method.code)).json(responseBody)
       }
     }
@@ -49,16 +49,18 @@ interface SuccessInput {
 }
 
 const _generateSuccessResponse = ({ data, meta }: SuccessInput) => ({
-  meta,
   data,
+  meta,
 })
 
 interface ErrorsInput {
   error: any
+  meta: any
 }
 
-const _generateErrorResponse = ({ error }: ErrorsInput) => ({
+const _generateErrorResponse = ({ error, meta }: ErrorsInput) => ({
   error,
+  meta,
 })
 
 export { responseEnhancer }
