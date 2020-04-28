@@ -1,8 +1,16 @@
 # express-response-formatter
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aofleejay/express-response-formatter/blob/master/LICENSE.md) [![npm](https://img.shields.io/npm/v/express-response-formatter.svg)](https://www.npmjs.com/package/express-response-formatter) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com) [![Build Status](https://travis-ci.org/aofleejay/express-response-formatter.svg?branch=master)](https://travis-ci.org/aofleejay/express-response-formatter)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aofleejay/express-response-formatter/blob/master/LICENSE.md) [![npm](https://img.shields.io/npm/v/express-response-formatter.svg)](https://www.npmjs.com/package/express-response-formatter) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com) [![Build Status](https://travis-ci.org/aofleejay/express-response-formatter.svg?branch=master)](https://travis-ci.org/aofleejay/express-response-formatter)[![Coverage Status](https://coveralls.io/repos/github/aofleejay/express-response-formatter/badge.svg?branch=master)](https://coveralls.io/github/aofleejay/express-response-formatter?branch=master)
 
 Better way to format Express response
+
+## How It Works
+
+- You can use response with readable name like `res.formatter.ok` for 200 ok or `res.formatter.badRequest` for 400 bad request.
+- It will format your response in two ways `success` and `error`.
+  - If response is `2xx, 3xx` return response under object key `data`.
+  - If response is `4xx, 5xx` return response under object key `error`.
+- You can pass metadata as second parameter and it's will present under `meta` object key.
 
 ## Installation
 
@@ -12,11 +20,13 @@ npm install express-response-formatter --save
 
 ## Quick Start
 
-Example usage
+Response for 200 Ok.
 
 ```js
-const app = require('express')()
-const responseEnhancer = require('express-response-formatter')
+import app from 'express'
+import { responseEnhancer } from 'express-response-formatter'
+
+const app = express()
 
 // Add formatter functions to "res" object via "responseEnhancer()"
 app.use(responseEnhancer())
@@ -49,7 +59,7 @@ HTTP/1.1 200 Ok
 
 ## More usages
 
-200 OK with "meta field"
+Response for 200 Ok with `meta field`
 
 ```js
 app.get('/success-with-meta', (req, res) => {
@@ -84,7 +94,7 @@ HTTP/1.1 200 Ok
 }
 ```
 
-400 Bad Request with "multiple errors"
+Response for 400 Bad Request with "error"
 
 ```js
 app.get('/bad-request', (req, res) => {
@@ -100,7 +110,7 @@ app.get('/bad-request', (req, res) => {
 ```json
 HTTP/1.1 400 Bad Request
 {
-  "errors": [
+  "error": [
     {
       "detail": "Field id is required."
     },
@@ -113,22 +123,22 @@ HTTP/1.1 400 Bad Request
 
 ## APIs
 
-| METHOD                                   | STATUS CODE |
-| ---------------------------------------- | ----------- |
-| res.formatter.ok(data, meta?)            | 200         |
-| res.formatter.created(data, meta?)       | 201         |
-| res.formatter.accepted(data, meta?)      | 202         |
-| res.formatter.noContent(data, meta?)     | 204         |
-| res.formatter.badRequest(errors)         | 400         |
-| res.formatter.unauthorized(errors)       | 401         |
-| res.formatter.forbidden(errors)          | 403         |
-| res.formatter.notFound(errors)           | 404         |
-| res.formatter.methodNotAllowed(errors)   | 405         |
-| res.formatter.timeout(errors)            | 408         |
-| res.formatter.conflict(errors)           | 409         |
-| res.formatter.unprocess(errors)          | 422         |
-| res.formatter.tooManyRequests(errors)    | 429         |
-| res.formatter.serverError(errors)        | 500         |
-| res.formatter.badGateway(errors)         | 502         |
-| res.formatter.serviceUnavailable(errors) | 503         |
-| res.formatter.gatewayTimeout(errors)     | 504         |
+| METHOD                                         | STATUS CODE |
+| ---------------------------------------------- | ----------- |
+| res.formatter.ok(data, meta?)                  | 200         |
+| res.formatter.created(data, meta?)             | 201         |
+| res.formatter.accepted(data, meta?)            | 202         |
+| res.formatter.noContent(data, meta?)           | 204         |
+| res.formatter.badRequest(errors, meta)         | 400         |
+| res.formatter.unauthorized(errors, meta)       | 401         |
+| res.formatter.forbidden(errors, meta)          | 403         |
+| res.formatter.notFound(errors, meta)           | 404         |
+| res.formatter.methodNotAllowed(errors, meta)   | 405         |
+| res.formatter.timeout(errors, meta)            | 408         |
+| res.formatter.conflict(errors, meta)           | 409         |
+| res.formatter.unprocess(errors, meta)          | 422         |
+| res.formatter.tooManyRequests(errors, meta)    | 429         |
+| res.formatter.serverError(errors, meta)        | 500         |
+| res.formatter.badGateway(errors, meta)         | 502         |
+| res.formatter.serviceUnavailable(errors, meta) | 503         |
+| res.formatter.gatewayTimeout(errors, meta)     | 504         |
