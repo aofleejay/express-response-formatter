@@ -47,7 +47,7 @@ describe('Test avaliable methods.', () => {
       .end((err, res) => {
         if (err) return done(err)
         expect(res.body).toEqual({
-          errors: [{ detail: 'User not found.', message: 'NOT_FOUND' }],
+          error: [{ detail: 'User not found.', message: 'NOT_FOUND' }],
         })
         done()
       })
