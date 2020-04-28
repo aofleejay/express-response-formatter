@@ -1,5 +1,5 @@
 const app = require('express')()
-const responseEnhancer = require('express-response-formatter')
+const { responseEnhancer } = require('express-response-formatter')
 
 // Add formatter functions to "res" object via "responseEnhancer()"
 app.use(responseEnhancer())

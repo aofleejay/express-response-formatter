@@ -14,4 +14,4 @@ declare const responseEnhancer: () => (
   res: Response<any>,
   next: NextFunction,
 ) => void
-export default responseEnhancer
+export { responseEnhancer }

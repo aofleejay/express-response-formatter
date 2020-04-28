@@ -61,4 +61,4 @@ const _generateErrorResponse = ({ errors }: ErrorsInput) => ({
   errors,
 })
 
-export default responseEnhancer
+export { responseEnhancer }
