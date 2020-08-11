@@ -1,7 +1,7 @@
 import { Express, Request, Response, NextFunction } from 'express'
 import methods, { Methods, Method } from './methods'
 
-type ResponseFunction = { [key in Methods]: (data: any, meta: any) => void }
+type ResponseFunction = { [key in Methods]: (data: any, meta?: any) => void }
 
 declare global {
   namespace Express {
