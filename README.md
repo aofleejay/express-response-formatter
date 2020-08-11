@@ -12,6 +12,8 @@ Better way to format Express response
   - If response is `4xx, 5xx` return response under object key `error`.
 - You can pass metadata as second parameter and it's will present under `meta` object key.
 
+![Usage](usage.gif)
+
 ## Installation
 
 ```
