@@ -1,5 +1,24 @@
+type Methods =
+  | 'ok'
+  | 'created'
+  | 'accepted'
+  | 'noContent'
+  | 'badRequest'
+  | 'unauthorized'
+  | 'forbidden'
+  | 'notFound'
+  | 'methodNotAllowed'
+  | 'timeout'
+  | 'conflict'
+  | 'unprocess'
+  | 'tooManyRequests'
+  | 'serverError'
+  | 'badGateway'
+  | 'serviceUnavailable'
+  | 'gatewayTimeout'
+
 interface Method {
-  name: string
+  name: Methods
   code: string
   message: string
   isSuccess: boolean
@@ -110,5 +129,5 @@ const methods: Method[] = [
   },
 ]
 
-export { Method }
+export { Method, Methods }
 export default methods

@@ -1,14 +1,12 @@
 import { Express, Request, Response, NextFunction } from 'express'
-import methods, { Method } from './methods'
+import methods, { Methods, Method } from './methods'
 
-interface LooseObject {
-  [key: string]: any
-}
+type ResponseFunction = { [key in Methods]: (data: any, meta: any) => void }
 
 declare global {
   namespace Express {
     interface Response {
-      formatter: LooseObject
+      formatter: ResponseFunction
     }
   }
 }
@@ -23,7 +21,7 @@ const responseEnhancer = () => (
 }
 
 const _generateFormatters = (res: Response) => {
-  const formatter: LooseObject = {}
+  const formatter = {} as ResponseFunction
   let responseBody = {}
 
   methods.map((method: Method) => {
