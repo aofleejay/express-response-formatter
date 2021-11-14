@@ -6,13 +6,24 @@ const app = express()
 
 describe('Test avaliable methods.', () => {
   beforeAll(() => {
-    app.use(responseEnhancer())
+    const definedMEta = {
+      version: '1.0',
+      env: 'dev',
+    }
+    app.use(responseEnhancer(definedMEta))
 
     app.get('/success-with-meta', function(req, res) {
       const users = [{ name: 'John' }, { name: 'Jane' }]
       const metadata = { total: 2 }
 
       res.formatter.ok(users, metadata)
+    })
+
+    app.get('/success-with-defined-meta', function(req, res) {
+      const users = [{ name: 'John' }, { name: 'Jane' }]
+      // const metadata = { total: 2 }
+
+      res.formatter.ok(users)
     })
 
     app.get('/not-found', function(req, res) {
@@ -50,6 +61,25 @@ describe('Test avaliable methods.', () => {
         expect(res.body).toEqual({
           meta: { trackId: '12345' },
           error: [{ detail: 'User not found.', message: 'NOT_FOUND' }],
+        })
+        done()
+      })
+  })
+
+  it('"formatter.notFound" should return status code "404" and correct payload', done => {
+    request(app)
+      .get('/success-with-defined-meta')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+        expect(res.body).toEqual({
+          data: [{ name: 'John' }, { name: 'Jane' }],
+          meta: {
+            version: '1.0',
+            env: 'dev',
+          },
         })
         done()
       })

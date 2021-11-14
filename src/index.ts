@@ -11,28 +11,31 @@ declare global {
   }
 }
 
-const responseEnhancer = () => (
+const responseEnhancer = (definedMeta?: any) => (
   req: Request,
   res: Response,
   next: NextFunction,
 ): void => {
-  res.formatter = _generateFormatters(res)
+  res.formatter = _generateFormatters(res, definedMeta)
   next()
 }
 
-const _generateFormatters = (res: Response) => {
+const _generateFormatters = (res: Response, definedMeta?: any) => {
   const formatter = {} as ResponseFunction
+  let responseMeta = {}
   let responseBody = {}
 
   methods.map((method: Method) => {
     if (method.isSuccess) {
       formatter[method.name] = (data: any, meta: any) => {
-        responseBody = _generateSuccessResponse({ data, meta })
+        responseMeta = meta ? meta : definedMeta
+        responseBody = _generateSuccessResponse({ data, meta: responseMeta })
         res.status(parseInt(method.code)).json(responseBody)
       }
     } else {
       formatter[method.name] = (error: any, meta: any) => {
-        responseBody = _generateErrorResponse({ error, meta })
+        responseMeta = meta ? meta : definedMeta
+        responseBody = _generateErrorResponse({ error, meta: responseMeta })
         res.status(parseInt(method.code)).json(responseBody)
       }
     }
